@@ -1,0 +1,10 @@
+# Archivos temporales de Microchip
+**/Debug
+/Microchip/CDyM-2024-TP3-G21/CDyM-2024-TP4-G21/Debug
+
+# Archivos temporales de Proteus
+**/Project Backups
+/Proteus/Project Backups
+
+.workspace
+*.workspace
