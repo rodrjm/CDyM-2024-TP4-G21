@@ -34,7 +34,7 @@ void setRed(uint8_t redAux) {
 		Timer0_Init(); // Enciendo el timer
 	} else {
 		TCCR0B = 0; // Apago el timer
-		PORTB |= (1<<PORTB5); // Seteo el PORTB5 en alto
+		PORTB |= (1<<PORTB5); // Configuración del PORTB5 en alto
 	}
 }
 
@@ -45,7 +45,7 @@ void setGreen(uint8_t greenAux) {
 		OCR1B = green;
 	} else {
 		TCCR1A &= ~((1<<COM1B1) & (1<<COM1B0)); // OCR1B desconectado
-		PORTB |= (1<<PORTB2); // Seteo el PORTB2 en alto
+		PORTB |= (1<<PORTB2); // Configuración del PORTB2 en alto
 	}
 }
 
@@ -56,7 +56,7 @@ void setBlue(uint8_t blueAux) {
 		OCR1A = blue;
 		} else {
 		TCCR1A &= ~((1<<COM1A1) & (1<<COM1A0)); // OCR1A desconectado
-		PORTB |= (1<<PORTB1); // Seteo el PORTB1 en alto
+		PORTB |= (1<<PORTB1); // Configuración del PORTB1 en alto
 	}
 }
 
@@ -64,9 +64,9 @@ void setBlue(uint8_t blueAux) {
 
 ISR(TIMER0_OVF_vect) {
 	OCR0A = red;
-	PORTB &= ~(1<<PORTB5); // Seteo el PORTB5 en bajo
+	PORTB &= ~(1<<PORTB5); // Configuración del PORTB5 en bajo
 }
 
 ISR(TIMER0_COMPA_vect) {
-	PORTB |= (1<<PORTB5); // Seteo el PORTB5 en alto
+	PORTB |= (1<<PORTB5); // Configuración del PORTB5 en alto
 }
