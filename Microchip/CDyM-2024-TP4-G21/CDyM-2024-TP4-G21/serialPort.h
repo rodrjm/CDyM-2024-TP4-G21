@@ -41,13 +41,4 @@
 	void SerialPort_Wait_Until_New_Data(void);	// Pooling - Bloqueante, puede durar indefinidamente!
 	char SerialPort_Recive_Data(void);
 
-	// Inicialización de la UART
-	void UART_Init();
-	
-	void mensajeDetenido();
-	void mensajeReanudado();
-	
-	void transmitirDatos();
-	void SerialPort_TX_DHT11();
-	void SerialPort_TX_RTC(uint8_t segundos, uint8_t minutos, uint8_t horas, uint8_t dia, uint8_t mes, uint8_t anio);
 #endif /* SERIALPORT_H_ */
