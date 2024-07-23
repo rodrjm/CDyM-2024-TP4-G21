@@ -8,5 +8,8 @@
 #include <string.h>
 #include <stdint.h>
 #include "pwm.h"
+#include "uart.h"
+#include "adc.h"
+#include "rgb.h"
 
 #endif /* MAIN_H_ */
