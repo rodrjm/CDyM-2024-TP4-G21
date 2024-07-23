@@ -1,4 +1,4 @@
-#include "uart.c"
+#include "uart.h"
 
 #define BR9600 (0x67)	// 0x67=103 configura BAUDRATE=9600@16MHz
 #define TX_BUFFER_LENGTH 50
@@ -21,7 +21,8 @@ char msgRed[] = "Ingrese la proporción de color para el LED rojo\n\r";
 char msgGreen[] = "Ingrese la proporción de color para el LED verde\n\r";
 char msgBlue[] = "Ingrese la proporción de color para el LED azul\n\r";
 char msgModificar[] = "Ingrese 'R' para modificar el rojo, 'G' para el verde o 'B' para el azul\n\r";
-char msgError[] = "Comando inválido. Pruebe nuevamente\n\r";
+char msgComandoInvalido[] = "Comando inválido. Pruebe nuevamente\n\r";
+char msgIngresarNumeroValido[] = "Ingresar número válido. Pruebe nuevamente\n\r";
 
 // Inicialización de la UART
 void UART_Init() {
@@ -48,8 +49,12 @@ void UART_mensajeModificarBlue() {
 	SerialPort_Send_String(msgBlue);
 }
 
-void UART_mensajeError() {
-	SerialPort_Send_String(msgError);
+void UART_mensajeComandoInvalido() {
+	SerialPort_Send_String(msgComandoInvalido);
+}
+
+void UART_mensajeIngresarNumeroValido() {
+	SerialPort_Send_String(msgIngresarNumeroValido);
 }
 
 char UART_getRXflag() {
@@ -61,11 +66,19 @@ void UART_clearRXflag() {
 }
 
 char* UART_getRXBuffer() {
-	return RX_Buffer
+	return RX_Buffer;
 }
 
-void UART_verificarNumero(char *entrada) {
+uint8_t UART_verificarNumero(char *entrada, uint8_t *numero) {
+	uint8_t digito, factor = 1; *numero = 0;
 	
+	for (int8_t i=strlen(entrada)-1; i>=0; i--) { // Se comienza a armar el número desde la unidad
+		digito = entrada[i] - '0'; // Obtener digito
+		if (digito > 9) return 0; // Si el caracter no es valido, retornar que no es número 
+		(*numero) += digito * factor; // Sumar al resultado 
+		factor *= 10; // Actualizar factor (x10)
+	}
+	return 1; // Retornar conversión exitosa
 }
 
 uint8_t UART_verificarEntrada(char *entrada) {

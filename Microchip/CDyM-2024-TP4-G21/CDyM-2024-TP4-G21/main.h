@@ -7,7 +7,7 @@
 #include <avr/interrupt.h>
 #include <string.h>
 #include <stdint.h>
-#include "pwm.h"
+#include "serialPort.h"
 #include "uart.h"
 #include "adc.h"
 #include "rgb.h"
