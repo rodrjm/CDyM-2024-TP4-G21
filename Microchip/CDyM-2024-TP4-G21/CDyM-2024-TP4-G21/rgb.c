@@ -1,4 +1,4 @@
-#include "pwm.h"
+#include "rgb.h"
 
 static volatile uint8_t red=0;
 static volatile uint8_t green=0;
@@ -17,7 +17,7 @@ static void Timer1_Init() {
 	TCCR1B |= (1<<CS10)| (1<<CS12) | (1<<WGM12); // Modo Fast PWM 8-bit y Prescaler 1024
 }
 
-void PWM_Init(uint8_t redAux, uint8_t greenAux, uint8_t blueAux) {
+void RGB_Init(uint8_t redAux, uint8_t greenAux, uint8_t blueAux) {
 	red = redAux;
 	green = greenAux;
 	blue = blueAux;
@@ -28,7 +28,7 @@ void PWM_Init(uint8_t redAux, uint8_t greenAux, uint8_t blueAux) {
 	Timer1_Init();
 }
 
-void setRed(uint8_t redAux) {
+void RGB_setRed(uint8_t redAux) {
 	red = redAux;
 	if (red > 0) {
 		Timer0_Init(); // Enciendo el timer
@@ -38,7 +38,7 @@ void setRed(uint8_t redAux) {
 	}
 }
 
-void setGreen(uint8_t greenAux) {
+void RGB_setGreen(uint8_t greenAux) {
 	green = greenAux;
 	if (green > 0) {
 		TCCR1A |= (1<<COM1B1) | (1<<COM1B0); // Output Compare Match en Modo invertido
@@ -49,7 +49,7 @@ void setGreen(uint8_t greenAux) {
 	}
 }
 
-void setBlue(uint8_t blueAux) {
+void RGB_setBlue(uint8_t blueAux) {
 	blue = blueAux;
 	if (blue > 0) {
 		TCCR1A |= (1<<COM1A1) | (1<<COM1A0); // Output Compare Match en Modo invertido
@@ -58,6 +58,18 @@ void setBlue(uint8_t blueAux) {
 		TCCR1A &= ~((1<<COM1A1) & (1<<COM1A0)); // OCR1A desconectado
 		PORTB |= (1<<PORTB1); // Configuración del PORTB1 en alto
 	}
+}
+
+void RGB_setBrillo(uint8_t brillo, uint8_t redAux, uint8_t greenAux, uint8_t blueAux) {
+	uint8_t porcentaje = (uint8_t) trunc((brillo*100)/255);
+	
+	red = (redAux*porcentaje)/100;
+	green = (greenAux*porcentaje)/100;
+	blue = (blueAux*porcentaje)/100;
+	
+	RGB_setRed(red);
+	RGB_setGreen(green);
+	RGB_setBlue(blue);	
 }
 
 // Interrupciones que controlan el LED Rojo
