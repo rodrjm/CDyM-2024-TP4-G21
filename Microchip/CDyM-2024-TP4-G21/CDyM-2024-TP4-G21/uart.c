@@ -15,11 +15,13 @@ static unsigned char RX_flag = 0;
 static char dato;
 
 // Mensajes de bienvenida y de control del LED
-char msgBienvenida[] = "Bienvenido al sistema de control de un LED RGB";
+char msgBienvenida[] = "Bienvenido al sistema de control de un LED RGB\n\r";
+char msgInicio[] = "Ingrese la proporción de color para cada LED (de 0 a 255) para obtener un color resultante\n\r";
 char msgRed[] = "Ingrese la proporción de color para el LED rojo\n\r";
 char msgGreen[] = "Ingrese la proporción de color para el LED verde\n\r";
 char msgBlue[] = "Ingrese la proporción de color para el LED azul\n\r";
-char msgModificar[] = "Ingrese 'R' para modificar el rojo, 'G' para el verde o 'B' para el azul\n\r"
+char msgModificar[] = "Ingrese 'R' para modificar el rojo, 'G' para el verde o 'B' para el azul\n\r";
+char msgError[] = "Comando inválido. Pruebe nuevamente\n\r";
 
 // Inicialización de la UART
 void UART_Init() {
@@ -28,6 +30,26 @@ void UART_Init() {
 	SerialPort_RX_Enable();			// Activo el receptor del Puerto Serie
 	SerialPort_Send_String(msgBienvenida); // Envío el mensaje de bienvenida
 	SerialPort_RX_Interrupt_Enable();	// Activo Interrupción de recepcion
+}
+
+void UART_mensajeInicio() {
+	SerialPort_Send_String(msgInicio);
+}
+
+void UART_mensajeModificarRed() {
+	SerialPort_Send_String(msgRed);
+}
+
+void UART_mensajeModificarGreen() {
+	SerialPort_Send_String(msgGreen);
+}
+
+void UART_mensajeModificarBlue() {
+	SerialPort_Send_String(msgBlue);
+}
+
+void UART_mensajeError() {
+	SerialPort_Send_String(msgError);
 }
 
 char UART_getRXflag() {
@@ -40,6 +62,10 @@ void UART_clearRXflag() {
 
 char* UART_getRXBuffer() {
 	return RX_Buffer
+}
+
+void UART_verificarNumero(char *entrada) {
+	
 }
 
 uint8_t UART_verificarEntrada(char *entrada) {

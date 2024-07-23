@@ -5,6 +5,9 @@ uint8_t green=0, greenAux=0;
 uint8_t blue=0, blueAux=0;
 uint8_t brillo=0, brilloAnterior=0;
 
+uint8_t leerRed=0, leerGreen=0, leerBlue=0;
+
+uint8_t listo = 0;
 uint8_t entrada = 0;
 uint8_t inicio = 1;
 
@@ -15,39 +18,40 @@ int main(void)
 	UART_Init();
 	ADC_Init();
 	sei();
-	
-	// UART_mensajeBienvenida();
-	
+	UART_mensajeInicio();
+	leerRed=1;
     while (1) 
     {
 		if (UART_getRXflag()) {
 			if (inicio) {
-				// UART_ingresarProporciones();
-				inicio = 0;
+				UART_verificarNumero(UART_getRXBuffer());
 			} else {
-				entrada = UART_verificarEntrada(UART_getRXBuffer());
+				if (listo) {
+					entrada = UART_verificarEntrada(UART_getRXBuffer());
+				}
 				switch (entrada) {
 					case 1: {
-						// UART_mensajeModificarRed();
-						// RGB_setRed(redAux);
+						UART_mensajeModificarRed();
+						RGB_setRed(redAux);
 						break;
 					}
 					case 2: {
-						// UART_mensajeModificarGreen();
-						// RGB_setGreen(greenAux);
+						UART_mensajeModificarGreen();
+						RGB_setGreen(greenAux);
 						break;
 					}
 					case 3: {
-						// UART_mensajeModificarBlue();
-						// RGB_setBlue(blueAux);
+						UART_mensajeModificarBlue();
+						RGB_setBlue(blueAux);
 						break;
 					}
 					default: {
-						// UART_mensajeError();
+						UART_mensajeError();
 						break;
 					}
+				}
 			}
-		} 
+		}
 		
 		brillo = ADC_Read();
 		if (brillo != brilloAnterior) {
