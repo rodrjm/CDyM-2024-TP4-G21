@@ -13,6 +13,7 @@
 	void UART_mensajeModificarRed();
 	void UART_mensajeModificarGreen();
 	void UART_mensajeModificarBlue();
+	void UART_mensajeModificar();
 	void UART_mensajeComandoInvalido();
 	void UART_mensajeIngresarNumeroValido();
 	char UART_getRXflag();

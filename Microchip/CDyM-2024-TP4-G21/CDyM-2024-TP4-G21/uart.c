@@ -49,6 +49,10 @@ void UART_mensajeModificarBlue() {
 	SerialPort_Send_String(msgBlue);
 }
 
+void UART_mensajeModificar() {
+	SerialPort_Send_String(msgModificar);
+}
+
 void UART_mensajeComandoInvalido() {
 	SerialPort_Send_String(msgComandoInvalido);
 }
