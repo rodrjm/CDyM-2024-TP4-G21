@@ -33,7 +33,7 @@ void RGB_setRed(uint8_t redAux) {
 	if (red > 0) {
 		Timer0_Init(); // Enciendo el timer
 	} else {
-		TCCR0B = 0; // Apago el timer
+		TCCR0B &= ~((1<<CS02) & (1<<CS01) & (1<<CS00)); // Apago el timer
 		PORTB |= (1<<PORTB5); // Configuración del PORTB5 en alto
 	}
 }
@@ -54,7 +54,7 @@ void RGB_setBlue(uint8_t blueAux) {
 	if (blue > 0) {
 		TCCR1A |= (1<<COM1A1) | (1<<COM1A0); // Output Compare Match en Modo invertido
 		OCR1A = blue;
-		} else {
+	} else {
 		TCCR1A &= ~((1<<COM1A1) & (1<<COM1A0)); // OCR1A desconectado
 		PORTB |= (1<<PORTB1); // Configuración del PORTB1 en alto
 	}

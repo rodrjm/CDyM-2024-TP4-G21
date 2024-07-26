@@ -1,8 +1,8 @@
 #include "main.h"
 
-uint8_t red=0, redAux=0;
-uint8_t green=0, greenAux=0;
-uint8_t blue=0, blueAux=0;
+uint8_t redAux=0;
+uint8_t greenAux=0;
+uint8_t blueAux=0;
 uint8_t brillo=0, brilloAnterior=0;
 
 uint8_t listo = 0;
@@ -13,8 +13,9 @@ uint8_t estado = 1; // 1=mensajeRed; 2=setRed; 3=mensajeGreen; 4=setGreen; 5=men
 
 int main(void)
 {
+	_delay_ms(3000);
 	DDRB |= (1<<PORTB5) | (1<<PORTB2) | (1<<PORTB1); // Configuración de los puertos PB1, PB2 y PB5 como salida
-	RGB_Init(red, green, blue);
+	RGB_Init(redAux, greenAux, blueAux);
 	UART_Init();
 	ADC_Init();
 	sei();
@@ -120,16 +121,18 @@ int main(void)
 							break;
 						}
 					}
-					brillo = ADC_Read();
-					if (brillo != brilloAnterior) {
-						brilloAnterior = brillo;
-						RGB_setBrillo(brillo, redAux, greenAux, blueAux);
-					}
 				} else {
 					UART_mensajeIngresarNumeroValido();
 				}
 				UART_clearRXflag();
 			}
 		}
+// 		if (!inicio) {
+// 			brillo = ADC_Read();
+// 			if (brillo != brilloAnterior) {
+// 				brilloAnterior = brillo;
+// 				RGB_setBrillo(brillo, redAux, greenAux, blueAux);
+// 			}
+// 		}
     }
 }

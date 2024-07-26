@@ -1,9 +1,11 @@
 #ifndef UART_H_
-#define UART_H_
+	#define UART_H_
 
 	#include <avr/io.h>
-	#include <avr/interrupt.h>
+	
+	#include <stdint.h>
 	#include <string.h>
+	
 	#include "serialPort.h"
 	
 	// Inicialización de la UART

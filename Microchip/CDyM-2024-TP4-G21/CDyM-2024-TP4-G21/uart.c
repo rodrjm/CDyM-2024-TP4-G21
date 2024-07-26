@@ -1,11 +1,11 @@
 #include "uart.h"
 
 #define BR9600 (0x67)	// 0x67=103 configura BAUDRATE=9600@16MHz
-#define TX_BUFFER_LENGTH 50
-#define RX_BUFFER_LENGTH 50
+#define TX_BUFFER_LENGTH 64
+#define RX_BUFFER_LENGTH 64
 
-unsigned char TX_indiceLectura = 0, TX_indiceEscritura = 0;
-unsigned char RX_indice=0;
+static unsigned char TX_indiceLectura = 0, TX_indiceEscritura = 0;
+static unsigned char RX_indice=0;
 
 static char TX_Buffer [TX_BUFFER_LENGTH];
 static char RX_Buffer [RX_BUFFER_LENGTH];
@@ -15,14 +15,14 @@ static unsigned char RX_flag = 0;
 static char dato;
 
 // Mensajes de bienvenida y de control del LED
-char msgBienvenida[] = "Bienvenido al sistema de control de un LED RGB\n\r";
-char msgInicio[] = "Ingrese la proporción de color para cada LED (de 0 a 255) para obtener un color resultante\n\r";
-char msgRed[] = "Ingrese la proporción de color para el LED rojo\n\r";
-char msgGreen[] = "Ingrese la proporción de color para el LED verde\n\r";
-char msgBlue[] = "Ingrese la proporción de color para el LED azul\n\r";
-char msgModificar[] = "Ingrese 'R' para modificar el rojo, 'G' para el verde o 'B' para el azul\n\r";
-char msgComandoInvalido[] = "Comando inválido. Pruebe nuevamente\n\r";
-char msgIngresarNumeroValido[] = "Ingresar número válido. Pruebe nuevamente\n\r";
+static char msgBienvenida[] = "Bienvenido al sistema de control de un LED RGB\n\r";
+static char msgInicio[] = "Ingrese la proporción de color para cada LED (de 0 a 255) para obtener un color resultante\n\r";
+static char msgRed[] = "Ingrese la proporción de color para el LED rojo\n\r";
+static char msgGreen[] = "Ingrese la proporción de color para el LED verde\n\r";
+static char msgBlue[] = "Ingrese la proporción de color para el LED azul\n\r";
+static char msgModificar[] = "Ingrese 'R' para modificar el rojo, 'G' para el verde o 'B' para el azul\n\r";
+static char msgComandoInvalido[] = "Comando inválido. Pruebe nuevamente\n\r";
+static char msgIngresarNumeroValido[] = "Ingresar número válido. Pruebe nuevamente\n\r";
 
 // Inicialización de la UART
 void UART_Init() {
@@ -105,7 +105,7 @@ ISR(USART_UDRE_vect) {
 		if (TX_indiceLectura < TX_indiceEscritura) {
 			SerialPort_Send_Data(TX_Buffer[TX_indiceLectura]);
 			TX_indiceLectura++;
-			} else {
+		} else {
 			TX_flag = 0;
 			TX_indiceLectura = 0;
 			TX_indiceEscritura = 0;
@@ -120,7 +120,7 @@ ISR(USART_RX_vect){
 	if (dato != '\r') {
 		RX_Buffer[RX_indice] = dato;
 		RX_indice++;
-		} else {
+	} else {
 		RX_Buffer[RX_indice] = '\0';
 		RX_indice = 0;
 		RX_flag = 1;
