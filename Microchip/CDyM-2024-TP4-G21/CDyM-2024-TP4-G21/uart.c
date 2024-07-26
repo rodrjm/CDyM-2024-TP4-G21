@@ -23,6 +23,7 @@ static char msgBlue[] = "Ingrese la proporción de color para el LED azul\n\r";
 static char msgModificar[] = "Ingrese 'R' para modificar el rojo, 'G' para el verde o 'B' para el azul\n\r";
 static char msgComandoInvalido[] = "Comando inválido. Pruebe nuevamente\n\r";
 static char msgIngresarNumeroValido[] = "Ingresar número válido. Pruebe nuevamente\n\r";
+static char msgFueradeRango[] = "Número fuera de rango. Debe estar entre 0 y 255\n\r";
 
 // Inicialización de la UART
 void UART_Init() {
@@ -59,6 +60,10 @@ void UART_mensajeComandoInvalido() {
 
 void UART_mensajeIngresarNumeroValido() {
 	SerialPort_Send_String(msgIngresarNumeroValido);
+}
+
+void UART_mensajeFueradeRango() {
+	SerialPort_Send_String(msgFueradeRango);
 }
 
 char UART_getRXflag() {

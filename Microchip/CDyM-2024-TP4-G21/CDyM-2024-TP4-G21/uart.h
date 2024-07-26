@@ -18,6 +18,7 @@
 	void UART_mensajeModificar();
 	void UART_mensajeComandoInvalido();
 	void UART_mensajeIngresarNumeroValido();
+	void UART_mensajeFueradeRango();
 	char UART_getRXflag();
 	void UART_clearRXflag();
 	char* UART_getRXBuffer();
