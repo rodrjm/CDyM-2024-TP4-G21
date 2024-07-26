@@ -8,7 +8,8 @@ uint8_t ADC_Read() {
 }
 
 void ADC_Init() {
-	DIDR0 = (1<<ADC3D); // Pin ADC3 como entrada
+	DDRC &= ~(1<<PORTC3); // Pin ADC3 como entrada
+	DIDR0 |= (1<<PORTC3); // Pin ADC3 como entrada
 	ADCSRA= 0x87; // Habilita ADC y selecciona ck/128
-	ADMUX= (1 << REFS0) | (1 << ADLAR) | (1 << MUX1) | (1 << MUX0); // Vref=AVCC, left-justified, ADC3 pin
+	ADMUX |= (1 << REFS0) | (1 << ADLAR) | (1 << MUX1) | (1 << MUX0); // Vref=AVCC, left-justified, ADC3 pin
 }

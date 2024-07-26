@@ -120,17 +120,16 @@ int main(void)
 							break;
 						}
 					}
+					brillo = ADC_Read();
+					if (brillo != brilloAnterior) {
+						brilloAnterior = brillo;
+						RGB_setBrillo(brillo, redAux, greenAux, blueAux);
+					}
 				} else {
 					UART_mensajeIngresarNumeroValido();
 				}
 				UART_clearRXflag();
 			}
 		}
-		
-// 		brillo = ADC_Read();
-// 		if (brillo != brilloAnterior) {
-// 			brilloAnterior = brillo;
-// 			RGB_setBrillo(brillo, redAux, greenAux, blueAux);
-// 		}
     }
 }
