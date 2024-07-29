@@ -78,15 +78,19 @@ char* UART_getRXBuffer() {
 	return RX_Buffer;
 }
 
-uint8_t UART_verificarNumero(char *entrada, uint8_t *numero) {
-	uint8_t digito, factor = 1; *numero = 0; 
+uint8_t UART_verificarNumero(char *entrada, uint16_t *numero) {
+	uint8_t digito, factor = 1; *numero = 0;
 	for (int8_t i=strlen(entrada)-1; i>=0; i--) { // Se comienza a armar el número desde la unidad
 		digito = entrada[i] - '0'; // Obtener digito
 		if (digito > 9) return 0; // Si el caracter no es valido, retornar que no es número 
 		(*numero) += digito * factor; // Sumar al resultado 
 		factor *= 10; // Actualizar factor (x10)
 	}
+	if ((*numero < 0) || (*numero > 255)) {
+		return 2;
+	} else {
 	return 1; // Retornar conversión exitosa
+	}
 }
 
 uint8_t UART_verificarEntrada(char *entrada) {

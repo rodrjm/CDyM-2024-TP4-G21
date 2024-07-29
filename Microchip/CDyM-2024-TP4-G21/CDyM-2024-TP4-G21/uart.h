@@ -22,7 +22,7 @@
 	char UART_getRXflag();
 	void UART_clearRXflag();
 	char* UART_getRXBuffer();
-	uint8_t UART_verificarNumero(char *entrada, uint8_t *numero);
+	uint8_t UART_verificarNumero(char *entrada, uint16_t *numero);
 	uint8_t UART_verificarEntrada(char *entrada);
 
 #endif /* UART_H_ */

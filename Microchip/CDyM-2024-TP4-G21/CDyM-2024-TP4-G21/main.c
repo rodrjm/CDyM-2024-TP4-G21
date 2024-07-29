@@ -6,8 +6,9 @@ uint8_t blueAux=0;
 uint8_t brillo=0, brilloAnterior=0;
 
 uint8_t listo = 0;
-uint8_t entrada = 0, numero = 0;
+uint8_t entrada = 0;
 uint8_t inicio = 1;
+uint16_t numero = 0;
 
 uint8_t estado = 1; // 1=mensajeRed; 2=setRed; 3=mensajeGreen; 4=setGreen; 5=mensajeBlue; 6=setBlue; 7=mensajeModificar;
 
@@ -47,7 +48,7 @@ int main(void)
 		}
 		if (UART_getRXflag()) {
 			if (inicio) {
-				if (UART_verificarNumero(UART_getRXBuffer(), &numero)) {
+				if (UART_verificarNumero(UART_getRXBuffer(), &numero) == 1) {
 					switch (estado) {
 						case 2: {
 							redAux = numero;
@@ -69,8 +70,10 @@ int main(void)
 							break;
 						}
 					}
+				} else if (UART_verificarNumero(UART_getRXBuffer(), &numero) == 2) {
+					UART_mensajeFueradeRango();
 				} else {
-					UART_mensajeIngresarNumeroValido();
+					UART_mensajeIngresarNumeroValido();					
 				}
 				UART_clearRXflag();
 			} else {
@@ -100,7 +103,7 @@ int main(void)
 						}
 					}
 				} else
-				if (UART_verificarNumero(UART_getRXBuffer(), &numero)) {
+				if (UART_verificarNumero(UART_getRXBuffer(), &numero) == 1) {
 					switch (estado) {
 						case 2: {
 							redAux = numero;
@@ -121,6 +124,8 @@ int main(void)
 							break;
 						}
 					}
+				} else if (UART_verificarNumero(UART_getRXBuffer(), &numero) == 2) {
+					UART_mensajeFueradeRango();
 				} else {
 					UART_mensajeIngresarNumeroValido();
 				}
