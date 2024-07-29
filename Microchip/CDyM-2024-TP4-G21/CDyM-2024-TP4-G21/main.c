@@ -127,12 +127,16 @@ int main(void)
 				UART_clearRXflag();
 			}
 		}
-// 		if (!inicio) {
-// 			brillo = ADC_Read();
-// 			if (brillo != brilloAnterior) {
-// 				brilloAnterior = brillo;
-// 				RGB_setBrillo(brillo, redAux, greenAux, blueAux);
-// 			}
-// 		}
+		if (!inicio) {
+			ADC_Run();
+			if(ADC_GetFlag()){
+				brillo = ADC_Read();
+				if (brillo != brilloAnterior) {
+					brilloAnterior = brillo;
+					RGB_setBrillo(brillo, redAux, greenAux, blueAux);
+				}
+				ADC_SetFlag();
+			}
+		}
     }
 }
