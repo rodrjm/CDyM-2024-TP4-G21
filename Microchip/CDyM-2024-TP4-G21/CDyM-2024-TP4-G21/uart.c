@@ -78,8 +78,9 @@ char* UART_getRXBuffer() {
 	return RX_Buffer;
 }
 
-uint8_t UART_verificarNumero(char *entrada, uint16_t *numero) {
-	uint8_t digito, factor = 1; *numero = 0;
+uint8_t UART_verificarNumero(char *entrada, uint32_t *numero) {
+	uint8_t digito, factor = 1;
+	*numero = 0;
 	for (int8_t i=strlen(entrada)-1; i>=0; i--) { // Se comienza a armar el número desde la unidad
 		digito = entrada[i] - '0'; // Obtener digito
 		if (digito > 9) return 0; // Si el caracter no es valido, retornar que no es número 
