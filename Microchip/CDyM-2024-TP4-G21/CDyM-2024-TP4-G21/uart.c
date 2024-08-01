@@ -123,7 +123,7 @@ ISR(USART_UDRE_vect) {
 	}
 }
 
-// Interrupción de recepción
+// Interrupción de recepción para la simulación en Proteus
 ISR(USART_RX_vect){
 	dato = SerialPort_Recive_Data();
 	if (dato != '\r') {
@@ -135,3 +135,30 @@ ISR(USART_RX_vect){
 		RX_flag = 1;
 	}
 }
+
+// Interrupción de recepción para la simulación en el Kit mediante Microchip
+// ISR(USART_RX_vect){
+// 	dato = SerialPort_Recive_Data();
+// 	
+// 	if ((dato != '\r') && (dato != '\n')) {
+// 		RX_Buffer[RX_indice] = dato;
+// 		RX_indice++;
+// 		} else {
+// 		if(dato=='\n'){
+// 			RX_flag = 1;
+// 			RX_Buffer[RX_indice] = '\0';
+// 			RX_Buffer[RX_indice++] = '\0';
+// 			//}
+// 			RX_indice = 0;
+// 			//RX_indice = 0;
+// 		}
+// 		//for (int i=0; i<RX_BUFFER_LENGTH; i++) {
+// 		//RX_Buffer[RX_indice] = '\0';
+// 		//RX_Buffer[RX_indice++] = '\0';
+// 		//}
+// 		//RX_indice = 0;
+// 		//RX_flag = 1;
+// 	}
+// 	
+// 	SerialPort_Send_Data(dato);
+// }
