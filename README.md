@@ -36,6 +36,3 @@ En el siguiente proyecto se trata de resolver un sistema, en el cuál se permita
 - Permitir seleccionar mediante un comando en la interfaz serie UART0 del atmega328p, cual proporción de color desea modificar. Enviar ´R´ para modificar el rojo, ´G´ para el verde y ´B´ para el azul.
 - Permitir poder utilizar el potenciómetro (resistencia variable) conectado al terminal ADC3 del atmega328p para poder modificar el brillo del color seleccionado.
 
-
-
-# CDyM-2024-TP4-G21
